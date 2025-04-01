@@ -13,5 +13,17 @@ package autonoma.simuladordeautomovilapp.models;
  * @ since 2025-04-01
  */
 public class Llanta {
+    /**
+     * Tipo de llanta del vehiculo
+     * Ejemplo : radiales, convencionales, de alto rendimiento,
+     *  todoterreno, de carreras etc.
+     */
+    private String tipo;
     
+    /**
+     * Limite de velocidad en km/h que soporta la Llanta
+     * Teniendo en cuenta como este hecha y las especificaciones
+     * del fabricante 
+     */
+    private double limite;
 }
