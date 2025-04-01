@@ -5,9 +5,19 @@
 package autonoma.simuladordeautomovilapp.models;
 
 /**
- *
- * @author USER
+ * Motor con sus caracteristicas Principales
+ * @author Juan Esteban Vera Velez
+ * versión 1.0
+ * @since 2025-04-01
  */
 public class Motor {
-    
+        /**
+         * Cilindraje del motor, puede ser expresado en litros o centimetros cúbicos
+         */
+        private String cilindraje;
+        
+        /**
+         * La Velocidad máxima que el motor puede alcanzar en km/h
+         */
+        private double velocidadMaxima;
 }

@@ -5,8 +5,11 @@
 package autonoma.simuladordeautomovilapp.models;
 
 /**
- *
- * @author USER
+ * Esta clase tendra todos los atributos, métodos y excepciones de
+ * uso para el Vehiculo y lo que se solicita en los puntos
+ * @author Juan Esteban Vera Velez
+ * versión 1.0
+ * @ since 2025-04-01
  */
 public class Vehiculo {
 

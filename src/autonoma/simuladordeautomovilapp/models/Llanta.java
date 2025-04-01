@@ -5,8 +5,12 @@
 package autonoma.simuladordeautomovilapp.models;
 
 /**
- *
- * @author USER
+ * Esta clase tendra los atributos de llanta, un constructor
+ * y un switch donde se refleje el  tipo de llantas y el 
+ * limite de velocidad km/h
+ * @author Juan Esteban Vera Velez
+ * versión 1.0
+ * @ since 2025-04-01
  */
 public class Llanta {
     
