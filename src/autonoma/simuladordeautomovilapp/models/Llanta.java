@@ -1,37 +1,68 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package autonoma.simuladordeautomovilapp.models;
 
 /**
- * Esta clase tendra los atributos de llanta, un constructor
- * y un switch donde se refleje el  tipo de llantas y el 
- * limite de velocidad km/h
+ * Esta clase tendrá los atributos de llanta, un constructor
+ * y un switch donde se refleje el tipo de llantas y el
+ * límite de velocidad km/h
+ * 
  * @author Juan Esteban Vera Velez
- * versión 1.0
- * @ since 2025-04-01
+ * @version 1.0
+ * @since 2025-04-01
  */
 public class Llanta {
     /**
-     * Tipo de llanta del vehiculo
-     * Ejemplo : radiales, convencionales, de alto rendimiento,
-     *  todoterreno, de carreras etc.
+     * Tipo de llanta del vehículo
+     * Ejemplo: radiales, convencionales, de alto rendimiento,
+     * todoterreno, de carreras, etc.
      */
     private String tipo;
     
     /**
-     * Limite de velocidad en km/h que soporta la Llanta
-     * Teniendo en cuenta como este hecha y las especificaciones
-     * del fabricante 
+     * Límite de velocidad en km/h que soporta la Llanta
+     * teniendo en cuenta cómo está hecha y las especificaciones
+     * del fabricante.
      */
     private double limiteVelocidad;
 
-    public double getlimiteVelocidad() {
+    /**
+     * Constructor de la clase Llanta.
+     * Establece el tipo de llanta y define el límite de velocidad.
+     * 
+     * @param tipo Tipo de llanta (ejemplo: "Buenas", "Bonitas", "Baratas")
+     */
+    public Llanta(String tipo) {
+        this.tipo = tipo;
+        
+        switch (tipo) {
+            case "Buenas":
+                this.limiteVelocidad = 110.0;
+                break;
+            case "Bonitas":
+                this.limiteVelocidad = 70.0;
+                break;
+            case "Baratas":
+                this.limiteVelocidad = 50.0;
+                break;
+            default:
+                this.limiteVelocidad = 50.0;
+        }
+    }
+
+    /**
+     * Para obtener el tipo de llanta del vehículo.
+     * 
+     * @return Tipo de llanta.
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * Para obtener el dato numérico del límite de velocidad del vehículo.
+     * 
+     * @return Límite de velocidad en km/h.
+     */
+    public double getLimiteVelocidad() {
         return limiteVelocidad;
     }
-  
- }
-
-    
-
+}

@@ -26,7 +26,6 @@ public class Vehiculo {
      * La velocidad actual del vehículo en km/h.
      */
     private double velocidad;
-
     /**
      * Objeto de la clase Llanta que representa las llantas del vehículo.
      */
