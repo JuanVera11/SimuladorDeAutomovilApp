@@ -25,5 +25,13 @@ public class Llanta {
      * Teniendo en cuenta como este hecha y las especificaciones
      * del fabricante 
      */
-    private double limite;
-}
+    private double limiteVelocidad;
+
+    public double getlimiteVelocidad() {
+        return limiteVelocidad;
+    }
+  
+ }
+
+    
+
