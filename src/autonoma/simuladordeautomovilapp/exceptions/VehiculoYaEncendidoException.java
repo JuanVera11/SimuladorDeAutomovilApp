@@ -6,6 +6,7 @@ package autonoma.simuladordeautomovilapp.exceptions;
 
 /**
  * Excepción cuando el vehiculo esta encendido
+ * 
  * @author Juan Esteban Vera Velez
  * Versión 1.0
  * since 2025-04-08
