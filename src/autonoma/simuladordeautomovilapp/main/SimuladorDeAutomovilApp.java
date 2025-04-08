@@ -9,5 +9,7 @@ package autonoma.simuladordeautomovilapp.main;
  * @author USER
  */
 public class SimuladorDeAutomovilApp {
-    
+    public static void main(String []args){
+        
+    }
 }
