@@ -7,6 +7,7 @@ package autonoma.simuladordeautomovilapp.models;
 
 /**
  * Esta clase es para las excepciones encontradas en Vehiculo
+ * 
  * @author Juan Esteban Vera Velez
  * versión 1.0
  * @since 2025-04-01

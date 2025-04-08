@@ -12,6 +12,12 @@ package autonoma.simuladordeautomovilapp.exceptions;
  * since 2025-04-08
  */
 public class VehiculoYaEncendidoException extends Exception {
+    
+    /**
+     * Constructor mediante el cual se dice que el Vehiculo
+     * esta encendido
+     */
+    
     public VehiculoYaEncendidoException() {
         super("El vehículo ya está encendido.");
     }
