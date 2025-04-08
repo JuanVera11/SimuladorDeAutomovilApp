@@ -4,10 +4,37 @@
  */
 package autonoma.simuladordeautomovilapp.models;
 
+import java.util.Scanner;
+
 /**
- *
- * @author USER
+ * 
+ * @since 08/04/2025
+ * @version 1.0
+ * @author Rafael
  */
 public class Taller {
     
+    public static Vehiculo configurarVehiculo(String archivo) {
+        // Valores por defecto
+        String llantas = "Bonitas";
+        String motor = "2000";
+        
+        try {
+            Scanner scaner = new Scanner(new java.io.File(archivo));
+            
+            while (scaner.hasNextLine()) {
+                String linea = scaner.nextLine();
+                if (linea.startsWith("llantas ")) {
+                    llantas = linea.substring(8).trim();
+                } else if (linea.startsWith("motor ")) {
+                    motor = linea.substring(6).trim();
+                }
+            }
+            scaner.close();
+        } catch (Exception e) {
+            System.out.println("Error leyendo archivo, usando valores por defecto");
+        }
+        
+        return new Vehiculo(new Llanta(llantas), new Motor(motor));
+    }
 }
