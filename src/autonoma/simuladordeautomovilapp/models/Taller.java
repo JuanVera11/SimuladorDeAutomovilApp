@@ -4,6 +4,7 @@
  */
 package autonoma.simuladordeautomovilapp.models;
 
+import autonoma.simuladordeautomovilapp.exceptions.ExcesoVelocidadException;
 import java.util.Scanner;
 
 /**
@@ -37,4 +38,11 @@ public class Taller {
         
         return new Vehiculo(new Llanta(llantas), new Motor(motor));
     }
+    
+      public void probarVelocidad(int velocidad) throws ExcesoVelocidadException {
+    if (velocidad > 180) { 
+        throw new ExcesoVelocidadException("El vehículo ha superado la capacidad de su motor.");
+    }
+}
+    
 }

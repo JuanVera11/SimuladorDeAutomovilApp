@@ -14,7 +14,7 @@ package autonoma.simuladordeautomovilapp.exceptions;
  */
 public class FrenadoBruscoLlantasException extends Exception {
     /**
-     * Constructor por defecto que laza un mensaje indicando
+     * Constructor que lanza un mensaje indicando
      * que la velocidad superó el limite permitido por las llantas
      */
     public FrenadoBruscoLlantasException(){

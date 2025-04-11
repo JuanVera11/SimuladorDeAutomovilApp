@@ -14,7 +14,7 @@ package autonoma.simuladordeautomovilapp.exceptions;
 public class FrenadoBruscoIntensidadMayorException extends Exception {
     
      /**
-     * Constructor que lanza un mensaje indicando que la intensidad del frenado 
+     * Constructor que da un mensaje indicando que la intensidad del frenado 
      * fue mayor que la velocidad actual del vehículo.
      */
     public FrenadoBruscoIntensidadMayorException() {
