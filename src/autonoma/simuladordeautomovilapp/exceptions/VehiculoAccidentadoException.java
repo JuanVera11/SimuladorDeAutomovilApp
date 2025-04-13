@@ -3,22 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package autonoma.simuladordeautomovilapp.exceptions;
-
 /**
- * Excepción cuando el vehiculo esta encendido
+ * Excepción cuando el vehiculo se accidenta,
+ * debio a que paso un limite de velocidad no permitido
  * 
  * @author Juan Esteban Vera Velez
  * Versión 1.0
  * since 2025-04-08
  */
-public class VehiculoYaEncendidoException extends Exception {
+public class VehiculoAccidentadoException extends Exception {
 
     /**
-     * Constructor de la clase CarroYaEncendidoException.
+     * Constructor de la clase CarroAccidentadoException.
      * 
-     * @param message Mensaje descriptivo del error.
+     * @param message Mensaje descriptivo del motivo del accidente.
      */
-    public VehiculoYaEncendidoException(String message) {
+    public VehiculoAccidentadoException(String message) {
         super(message);
     }
 }

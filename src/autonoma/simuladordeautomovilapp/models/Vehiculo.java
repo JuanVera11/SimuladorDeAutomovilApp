@@ -3,6 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package autonoma.simuladordeautomovilapp.models;
+import autonoma.simuladorapp.exceptions.ArchivoConfiguracionException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoAccidentadoException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoApagadoException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoDetenidoException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoHaPatinadoException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoYaApagadoException;
+import autonoma.simuladordeautomovilapp.exceptions.VehiculoYaEncendidoException;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JOptionPane;
+
 
 /**
  * Esta clase tendra todos los atributos, métodos y excepciones de
@@ -12,176 +27,189 @@ package autonoma.simuladordeautomovilapp.models;
  * @ since 2025-04-01
  */
 public class Vehiculo {
+
     /**
-     * Indica si el vehículo está encendido (true) o apagado (false).
+     * Motor del vehículo.
+     */
+    private Motor motor;
+
+    /**
+     * Llantas del vehículo.
+     */
+    private Llanta llantas;
+
+    /**
+     * Estado del motor (encendido o apagado).
      */
     private boolean encendido;
 
     /**
-     * Indica si el vehículo ha sufrido un accidente (true) o no (false).
+     * Velocidad actual del vehículo en km/h.
      */
-    private boolean accidentado;
+    private int velocidadActual;
 
     /**
-     * La velocidad actual del vehículo en km/h.
+     * Indica si el vehículo está patinando.
      */
-    private double velocidad;
-    /**
-     * Objeto de la clase Llanta que representa las llantas del vehículo.
-     */
-    private Llanta llanta;
+    private boolean haPatinado;
 
     /**
-     * Objeto de la clase Motor que representa el motor del vehículo.
+     * Indica si el vehículo ha sufrido un accidente.
      */
-     private Motor motor;
-     
-     /**
+    private boolean seHaAccidentado;
+
+    /**
      * Constructor de la clase Vehiculo.
-     *
-     * @param llanta Objeto Llanta que representa las llantas del vehículo.
-     * @param motor Objeto Motor que representa el motor del vehículo.
+     * 
+     * @param motor Motor del vehículo.
+     * @param llantas Llantas del vehículo.
      */
-    public Vehiculo(Llanta llanta, Motor motor) {
-        this.encendido = false;
-        this.accidentado = false;
-        this.velocidad = 0;
-        this.llanta = llanta;
+    public Vehiculo(Motor motor, Llanta llantas) {
         this.motor = motor;
+        this.llantas = llantas;
+        this.encendido = false;
+        this.velocidadActual = 0;
+        this.haPatinado = false;
+        this.seHaAccidentado = false;
     }
 
     /**
-     * Enciende el vehículo.
-     *
-     * @throws autonoma.simuladordeautomovilapp.models.VehiculoExcepcion
-     * @throws VehiculoExcepcion Si el vehículo ya está encendido.
+     * Enciende el motor del vehículo.
+     * 
+     * @throws VehiculoYaEncendidoException Si el vehículo ya está encendido.
+     * @throws UnsupportedAudioFileException Si el archivo de audio no es compatible.
+     * @throws IOException Si ocurre un error al cargar el archivo de audio.
+     * @throws LineUnavailableException Si no se puede reproducir el audio.
      */
-    public void encender() throws VehiculoExcepcion {
-        if (encendido) {
-            throw new VehiculoExcepcion("El vehículo ya está encendido.");
-        }
+    public void encender() throws VehiculoYaEncendidoException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (encendido) throw new VehiculoYaEncendidoException("El vehículo ya está encendido.");
         encendido = true;
-        System.out.println("Vehículo encendido.");
+        try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+            getClass().getResourceAsStream("/autonoma/sounds/startEngine.wav"))) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        }
+        JOptionPane.showMessageDialog(null, "Motor Encendido correctamente", "Motor encendido", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
-     * Apaga el vehículo.
-     *
-     * @throws VehiculoExcepcion Si el vehículo ya está apagado.
+     * Apaga el motor del vehículo.
+     * 
+     * @throws VehiculoYaApagadoException Si el vehículo ya está apagado.
+     * @throws VehiculoAccidentadoException Si el vehículo está accidentado.
+     * @throws UnsupportedAudioFileException Si el archivo de audio no es compatible.
+     * @throws IOException Si ocurre un error al cargar el archivo de audio.
+     * @throws LineUnavailableException Si no se puede reproducir el audio.
      */
-    public void apagar() throws VehiculoExcepcion {
-        if (!encendido) {
-            throw new VehiculoExcepcion("El vehículo ya está apagado.");
+    public void apagar() throws VehiculoYaApagadoException, VehiculoAccidentadoException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (!encendido) throw new VehiculoYaApagadoException("El vehículo ya está apagado.");
+        if (velocidadActual > 60) {
+            seHaAccidentado = true;
+            encendido = false;
+            velocidadActual = 0;
+            throw new VehiculoAccidentadoException("¡Accidente! No se puede apagar a esa velocidad.");
         }
         encendido = false;
-        System.out.println("Vehículo apagado.");
+        try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+            getClass().getResourceAsStream("/autonoma/sounds/stopEngine.wav"))) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        }
+        JOptionPane.showMessageDialog(null, "Motor apagado correctamente", "Motor apagado", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
-     * Acelera el vehículo.
-     *
-     * @param magnitud La magnitud en km/h a la que se acelera el vehículo.
-     * @throws VehiculoExcepcion Si el vehículo está apagado o si la aceleración excede la capacidad del motor.
+     * Acelera el vehículo en una cantidad específica de km/h.
+     * 
+     * @param kmh Cantidad de km/h a acelerar.
+     * @throws VehiculoApagadoException Si el vehículo está apagado.
+     * @throws VehiculoAccidentadoException Si el vehículo está accidentado.
+     * @throws UnsupportedAudioFileException Si el archivo de audio no es compatible.
+     * @throws IOException Si ocurre un error al cargar el archivo de audio.
+     * @throws LineUnavailableException Si no se puede reproducir el audio.
      */
-    public void acelerar(int magnitud) throws VehiculoExcepcion {
-        if (!encendido) {
-            throw new VehiculoExcepcion("No se puede acelerar un vehículo apagado.");
-        }
-        if (accidentado) {
-            throw new VehiculoExcepcion("El vehículo está accidentado y no se puede acelerar.");
-        }
-        if (velocidad + magnitud > motor.getvelocidadMaxima()) {
-            accidentado = true;
-            velocidad = 0;
+    public void acelerar(int kmh) throws VehiculoApagadoException, VehiculoAccidentadoException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (!encendido) throw new VehiculoApagadoException("No se puede acelerar con el vehículo apagado.");
+        velocidadActual += kmh;
+        if (velocidadActual > motor.getVelocidadMaxima()) {
+            seHaAccidentado = true;
             encendido = false;
-            throw new VehiculoExcepcion("El vehículo se accidentó por exceso de velocidad del motor.");
+            velocidadActual = 0;
+            throw new VehiculoAccidentadoException("¡El motor falló! Aceleró más de lo permitido.");
         }
-        velocidad += magnitud;
-        System.out.println("Velocidad aumentada a " + velocidad + " km/h.");
-    }
-
-    /**
-     * Frena el vehículo.
-     *
-     * @param magnitud La magnitud en km/h a la que se frena el vehículo.
-     * @throws VehiculoExcepcion Si el vehículo está apagado, si ya está detenido o si la magnitud de frenado excede la velocidad actual.
-     */
-    public void frenar(int magnitud) throws VehiculoExcepcion {
-        if (!encendido) {
-            throw new VehiculoExcepcion("No se puede frenar un vehículo apagado.");
+        try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+            getClass().getResourceAsStream("/autonoma/sounds/engineAccelerating.wav"))) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
         }
-        if (velocidad == 0) {
-            throw new VehiculoExcepcion("El vehículo ya está detenido.");
+        JOptionPane.showMessageDialog(null, "Acelerando " + kmh + " km/h. Velocidad actual: " + velocidadActual, "Acelerando", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Frena el vehículo en una cantidad específica de km/h.
+     * 
+     * @param kmh Cantidad de km/h a frenar.
+     * @throws VehiculoApagadoException Si el vehículo está apagado.
+     * @throws VehiculoDetenidoException Si el vehículo ya está detenido.
+     * @throws VehiculoHaPatinadoException Si el vehículo patina al frenar.
+     * @throws VehiculoAccidentadoException Si el vehículo está accidentado.
+     * @throws UnsupportedAudioFileException Si el archivo de audio no es compatible.
+     * @throws IOException Si ocurre un error al cargar el archivo de audio.
+     * @throws LineUnavailableException Si no se puede reproducir el audio.
+     */
+    public void frenar(int kmh) throws VehiculoApagadoException, VehiculoDetenidoException, VehiculoHaPatinadoException, VehiculoAccidentadoException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        if (!encendido) throw new VehiculoApagadoException("No se puede frenar con el vehículo apagado.");
+        if (velocidadActual == 0) throw new VehiculoDetenidoException("El vehículo ya está detenido.");
+        if (seHaAccidentado) throw new VehiculoAccidentadoException("El vehículo está accidentado y no puede realizar esta acción.");
+        if (haPatinado) {
+            JOptionPane.showMessageDialog(null, "El vehículo está patinando, no puedes frenar más hasta detenerse.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        if (magnitud > velocidad) {
-            accidentado = true;
-            velocidad = 0;
-            throw new VehiculoExcepcion("El vehículo patinó al frenar.");
+
+        boolean esFrenadoBrusco = kmh > 30;
+
+        if (esFrenadoBrusco && velocidadActual > llantas.getLimitePatinaje()) {
+            haPatinado = true;
+            throw new VehiculoHaPatinadoException("¡El vehículo patinó al frenar bruscamente!");
         }
-        velocidad -= magnitud;
-        System.out.println("Velocidad reducida a " + velocidad + " km/h.");
-    }
 
-    /**
-     * Frena bruscamente el vehículo.
-     *
-     * @throws VehiculoExcepcion Si el vehículo está apagado o si la velocidad excede el límite de las llantas.
-     */
-    public void frenarBruscamente() throws VehiculoExcepcion {
-        if (!encendido) {
-            throw new VehiculoExcepcion("No se puede frenar un vehículo apagado.");
+        if (kmh > velocidadActual) {
+            haPatinado = true;
+            throw new VehiculoHaPatinadoException("¡El vehículo patinó porque el frenado fue mayor que la velocidad actual!");
         }
-        if (velocidad > llanta.getlimiteVelocidad()) {
-            accidentado = true;
-            velocidad = 0;
-            throw new VehiculoExcepcion("El vehículo patinó al fr enar bruscamente.");
+
+        velocidadActual -= kmh;
+
+        if (velocidadActual <= 0) {
+            velocidadActual = 0;
+            haPatinado = false;
         }
-        velocidad = 0;
-        System.out.println("El vehículo frenó bruscamente y se detuvo.");
+
+        JOptionPane.showMessageDialog(null, "Frenando " + kmh + " km/h. Velocidad actual: " + velocidadActual, "Frenando", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
-     * Obtiene el estado de encendido del vehículo.
-     *
-     * @return true si el vehículo está encendido, false de lo contrario.
+     * Muestra el estado actual del vehículo.
      */
-    public boolean encendido() {
-        return encendido;
+    public void mostrarEstado() {
+        JOptionPane.showMessageDialog(null, 
+            "=== Estado del Vehículo ===\n" +
+            "Encendido: " + encendido + "\n" +
+            "Velocidad Actual: " + velocidadActual + " km/h\n" +
+            "Patinando: " + haPatinado + "\n" +
+            "Accidentado: " + seHaAccidentado + "\n" +
+            "===========================", 
+            "Estado del Vehículo", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * Obtiene el estado de accidente del vehículo.
-     *
-     * @return true si el vehículo está accidentado, false de lo contrario.
-     */
-    public boolean accidentado() {
-        return accidentado;
+    public Object getLlanta() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    /**
-     * Obtiene la velocidad actual del vehículo.
-     *
-     * @return La velocidad actual del vehículo en km/h.
-     */
-    public double getVelocidad() {
-        return velocidad;
-    }
-
-    /**
-     * Obtiene las llantas del vehículo.
-     *
-     * @return Objeto Llanta que representa las llantas del vehículo.
-     */
-    public Llanta getLlanta() {
-        return llanta;
-    }
-
-    /**
-     * Obtiene el motor del vehículo.
-     *
-     * @return Objeto Motor que representa el motor del vehículo.
-     */
-    public Motor getMotor() {
-        return motor;
+    public Object getMotor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

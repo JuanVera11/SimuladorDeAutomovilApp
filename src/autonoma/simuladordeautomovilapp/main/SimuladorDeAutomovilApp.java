@@ -5,11 +5,22 @@
 package autonoma.simuladordeautomovilapp.main;
 
 /**
- *
- * @author USER
+ * Clase SimuladorDeAutomovilApp donde
+ * Leere archivos para la configuración 
+ *  y se instanciaran el motor y las llantas del vehiculo
+ * 
+ * 
+ * @author Juan Esteban Vera Velez
+ * Versión 1.0
+ * since 2025-04-13
  */
 public class SimuladorDeAutomovilApp {
-    public static void main(String []args){
+    public static void main(String[] args) {
+        
+        
+        
+        
         
     }
-}
+   }
+

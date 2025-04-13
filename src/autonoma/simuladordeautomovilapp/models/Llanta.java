@@ -10,63 +10,19 @@ package autonoma.simuladordeautomovilapp.models;
  * @since 2025-04-01
  */
 public class Llanta {
+   
     /**
-     * Tipo de llanta del vehículo
-     * Ejemplo: radiales, convencionales, de alto rendimiento,
-     * todoterreno, de carreras, etc.
+     * Límite de patinaje de la llanta.
+     * Representa la velocidad máxima a la que la llanta puede frenar sin patinar.
      */
-    private String tipo;
-    
-    /**
-     * Límite de velocidad en km/h que soporta la Llanta
-     * teniendo en cuenta cómo está hecha y las especificaciones
-     * del fabricante.
-     */
-    private double limiteVelocidad;
+    protected int limitePatinaje;
 
     /**
-     * Constructor de la clase Llanta.
-     * Establece el tipo de llanta y define el límite de velocidad.
+     * Obtiene el límite de patinaje de la llanta.
      * 
-     * @param tipo Tipo de llanta (ejemplo: "Buenas", "Bonitas", "Baratas")
+     * @return El límite de patinaje en km/h.
      */
-    public Llanta(String tipo) {
-        this.tipo = tipo;
-        
-        switch (tipo) {
-            case "Buenas":
-                this.limiteVelocidad = 110.0;
-                break;
-            case "Bonitas":
-                this.limiteVelocidad = 70.0;
-                break;
-            case "Baratas":
-                this.limiteVelocidad = 50.0;
-                break;
-            default:
-                this.limiteVelocidad = 50.0;
-        }
-    }
-
-    /**
-     * Para obtener el tipo de llanta del vehículo.
-     * 
-     * @return Tipo de llanta.
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * Para obtener el dato numérico del límite de velocidad del vehículo.
-     * 
-     * @return Límite de velocidad en km/h.
-     */
-    public double getLimiteVelocidad() {
-        return limiteVelocidad;
-    }
-
-    double getlimiteVelocidad() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getLimitePatinaje() {
+        return limitePatinaje;
     }
 }

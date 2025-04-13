@@ -10,63 +10,20 @@ package autonoma.simuladordeautomovilapp.models;
  * versión 1.0
  * @since 2025-04-01
  */
-public class Motor {
-    /**
-     * Cilindraje del motor, puede ser expresado en litros o centímetros cúbicos.
-     */
-    private String cilindraje;
+public abstract class Motor {
 
     /**
-     * La velocidad máxima que el motor puede alcanzar en km/h.
+     * Velocidad máxima que el motor puede alcanzar, en km/h.
      */
-    private double velocidadMaxima;
+    protected int velocidadMaxima;
 
     /**
-     * Constructor Motor que recibe como parametro un String
-     * que es Cilindraje
-     * @param cilindraje 
-     */
-     public Motor(String cilindraje) {
-        this.cilindraje = cilindraje;
-        
-        /**
-         * Switch para determinar la velocidad maxima en km/h
-         * variando la velocidad
-         */
-        switch(cilindraje) {
-            case "1000":
-                this.velocidadMaxima = 100.0;
-                break;
-            case "2000":
-                this.velocidadMaxima = 160.0;
-                break;
-            case "3000":
-                this.velocidadMaxima = 220.0;
-                break;
-            default:
-                this.velocidadMaxima = 100.0; 
-        }
-    }
-    
-    /**
-     * Obtengo el valor del Cilindraje del Vehiculo
+     * Obtiene la velocidad máxima del motor.
      * 
-     * @return Cilindraje
+     * @return La velocidad máxima en km/h.
      */
-    public String getCilindraje() {
-        return cilindraje;
-    }
-    
-    /**
-     * Obtengo la VelocidadMaxima que puede tener el Vehiculo
-     * 
-     * @return velocidadMaxima
-     */
-    public double getVelocidadMaxima() {
+    public int getVelocidadMaxima() {
         return velocidadMaxima;
     }
-
-    double getvelocidadMaxima() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
+

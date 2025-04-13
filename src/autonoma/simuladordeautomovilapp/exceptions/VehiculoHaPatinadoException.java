@@ -5,21 +5,20 @@
 package autonoma.simuladordeautomovilapp.exceptions;
 
 /**
- * Esta Excepción es para cuando el vehiculo esta detenido 
- * y no se puede frenar
+ * Excepción cuando el vehiculo esta patinando
  * 
- *@author Juan Esteban Vera Velez
- * Versión 1.0
- * since 2025-04-08
+ * @author  Juan Esteban Vera Velez
+ *  Versión 1.0
+ * @ since 2025-04-13
  */
-public class FrenarVehiculoDetenidoException extends Exception {
+public class VehiculoHaPatinadoException extends Exception {
 
     /**
-     * Constructor de la clase CarroDetenidoException.
+     * Constructor de la clase CarroHaPatinadoException.
      * 
      * @param message Mensaje descriptivo del error.
      */
-    public FrenarVehiculoDetenidoException (String message) {
+    public VehiculoHaPatinadoException(String message) {
         super(message);
     }
 }
