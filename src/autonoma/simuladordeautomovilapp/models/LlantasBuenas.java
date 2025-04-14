@@ -13,9 +13,7 @@ package autonoma.simuladordeautomovilapp.models;
  * Versión 1.0
  * @since 2025-04-13
  */
-public class LlantasBuenas {
-
-    private final int limitePatinaje;
+public class LlantasBuenas extends Llanta {
       /**
      * Constructor de la clase LlantasBuenas.
      * Establece el límite de patinaje en 110 km/h.
